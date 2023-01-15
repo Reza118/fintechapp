@@ -1,16 +1,21 @@
 package reza.job.assess.capgemini.fintechapp.enums;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 public enum EndPointsEnum {
 
-    OpenAccount_EndPoint("/openaccount/"), UserInformation_EndPoint("/userinformation/");
+    OpenAccount_EndPoint(EndpointConstants.ep_openAccount),
+    UserInformation_EndPoint(EndpointConstants.ep_userInfo);
 
-    private String val;
+    @Getter
+    private final String value;
 
-    EndPointsEnum(String value) {
-        this.val = value;
-    }
-
-    public String toString(){
-        return this.val;
+    public static class EndpointConstants {
+        public static final String ep_openAccount = "/openaccount";
+        public static final String ep_userInfo = "/userinformation";
+        public static final String pathvar_custID = "customerID";
+        public static final String pathvar_initcredit = "initialCredit";
     }
 }
