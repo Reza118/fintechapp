@@ -15,6 +15,8 @@ public enum EndPointsEnum {
     public static class EndpointConstants {
         public static final String ep_openAccount = "/openaccount";
         public static final String ep_userInfo = "/userinformation";
+        public static final String ep_txns = "/accounttxn";
+        public static final String pathvar_account = "account";
         public static final String pathvar_custID = "customerID";
         public static final String pathvar_initcredit = "initialCredit";
     }

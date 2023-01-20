@@ -12,8 +12,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import reza.job.assess.capgemini.fintechapp.enums.EndPointsEnum;
-import reza.job.assess.capgemini.fintechapp.model.InitialAccount;
-import reza.job.assess.capgemini.fintechapp.service.AccountService;
+import reza.job.assess.capgemini.fintechapp.exception.OpenAccountFailedException;
+import reza.job.assess.capgemini.fintechapp.model.NewAccountRequest;
+import reza.job.assess.capgemini.fintechapp.service.OpenNewAccountService;
 
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -23,24 +24,33 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 //Use following annotation to avoid the entire Spring context to be loaded for the test!
 //The class "OpenAccountController" is written here and then is created in proper path!
 @WebMvcTest(controllers = OpenAccountController.class, excludeAutoConfiguration = {SecurityAutoConfiguration.class})
-public class OpenInitialAccountControllerTest {
+public class OpenInitialCustomerControllerTest {
 
     @Autowired
     MockMvc mockMvc;
 
     @MockBean
-    AccountService accountService;
+    OpenNewAccountService openNewAccountService;
 
     @Test
     public void openAccountTest() throws Exception{
 
-        InitialAccount acc = new InitialAccount("0123456789", "0");
-        given(accountService.getAccount(Mockito.anyString(), Mockito.anyString())).willReturn(acc);
+        NewAccountRequest acc = new NewAccountRequest("0123456789", "0");
+        given(openNewAccountService.createInitialAccount(Mockito.anyString(), Mockito.anyString())).willReturn(acc);
 
         mockMvc.perform(MockMvcRequestBuilders.get(EndPointsEnum.EndpointConstants.ep_openAccount + "/0123456789/0"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(jsonPath("$").isMap())
                 .andExpect(jsonPath(EndPointsEnum.EndpointConstants.pathvar_custID).value("0123456789"))
                 .andExpect(jsonPath(EndPointsEnum.EndpointConstants.pathvar_initcredit).value("0"));
+    }
+
+    @Test
+    public void openAccountFailedTest() throws Exception {
+
+        given(openNewAccountService.createInitialAccount(Mockito.anyString(), Mockito.anyString())).willThrow(OpenAccountFailedException.class);
+
+        mockMvc.perform(MockMvcRequestBuilders.get(EndPointsEnum.EndpointConstants.ep_openAccount + "/0123456789/0"))
+                .andExpect(MockMvcResultMatchers.status().isInternalServerError());
     }
 }

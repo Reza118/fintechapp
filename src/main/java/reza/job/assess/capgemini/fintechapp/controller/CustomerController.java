@@ -7,26 +7,26 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import reza.job.assess.capgemini.fintechapp.dto.CustAccDTO;
 import reza.job.assess.capgemini.fintechapp.enums.EndPointsEnum;
 import reza.job.assess.capgemini.fintechapp.model.NewAccountRequest;
+import reza.job.assess.capgemini.fintechapp.service.CustomerService;
 import reza.job.assess.capgemini.fintechapp.service.OpenNewAccountService;
 
-@CrossOrigin(origins = "http://192.168.112.1:3000")
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
-public class OpenAccountController {
+public class CustomerController {
 
     @Autowired
-    OpenNewAccountService openNewAccountService;
+    CustomerService customerService;
 
-    @CrossOrigin(origins = "http://192.168.112.1:3000")
-    @RequestMapping(EndPointsEnum.EndpointConstants.ep_openAccount +
-                    "/{" + EndPointsEnum.EndpointConstants.pathvar_custID + "}" +
-                    "/{" + EndPointsEnum.EndpointConstants.pathvar_initcredit + "}")
-    public ResponseEntity<NewAccountRequest> OpenAccount(@PathVariable String customerID,
-                                                         @PathVariable String initialCredit) throws Exception{
+    @CrossOrigin(origins = "http://localhost:3000")
+    @RequestMapping(EndPointsEnum.EndpointConstants.ep_userInfo +
+                    "/{" + EndPointsEnum.EndpointConstants.pathvar_custID + "}")
+    public ResponseEntity<Iterable<CustAccDTO>> CustomerData(@PathVariable String customerID) throws Exception{
 
-        NewAccountRequest iniAcc = openNewAccountService.createInitialAccount(customerID, initialCredit);
+        Iterable<CustAccDTO> custAccDTO = customerService.getCustomerInfo(customerID);
         //System.out.println("Here in Controller!\nCustomerID = " + customerID + "\nInitialCredit = " + initialCredit);
-        return new ResponseEntity<NewAccountRequest>(iniAcc, HttpStatus.OK);
+        return new ResponseEntity<Iterable<CustAccDTO>>(custAccDTO, HttpStatus.OK);
     }
 }
