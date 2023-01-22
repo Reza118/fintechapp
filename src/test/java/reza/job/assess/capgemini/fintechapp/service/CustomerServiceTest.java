@@ -8,7 +8,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import reza.job.assess.capgemini.fintechapp.exception.OpenAccountFailedException;
 import reza.job.assess.capgemini.fintechapp.model.NewAccountRequest;
-import reza.job.assess.capgemini.fintechapp.repository.OpenNewAccountRepository;
+import reza.job.assess.capgemini.fintechapp.repository.NewAccountRequestRepository;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
@@ -16,10 +16,10 @@ import static org.mockito.BDDMockito.given;
 public class CustomerServiceTest {
 
     @Mock
-    OpenNewAccountRepository openNewAccountRepository;
+    NewAccountRequestRepository newAccountRequestRepository;
 
     @InjectMocks
-    OpenNewAccountService openNewAccountService;
+    NewAccountRequestService newAccountRequestService;
 
     @BeforeEach
     public void SetUp(){
@@ -30,9 +30,9 @@ public class CustomerServiceTest {
     public void openInitAccount() throws Exception{
 
         NewAccountRequest acc = new NewAccountRequest("0123456789", "0");
-        given(openNewAccountRepository.save(new NewAccountRequest(Mockito.anyString(), Mockito.anyString()))).willReturn(acc);
+        given(newAccountRequestRepository.save(new NewAccountRequest(Mockito.anyString(), Mockito.anyString()))).willReturn(acc);
 
-        NewAccountRequest newAccountRequest = openNewAccountService.createInitialAccount("0123456789", "0");
+        NewAccountRequest newAccountRequest = newAccountRequestService.createInitialAccount("0123456789", "0");
         assertNotNull(newAccountRequest);
         assertEquals("0123456789", newAccountRequest.getCustomerID());
         assertEquals("0", newAccountRequest.getInitialCredit());
@@ -41,8 +41,8 @@ public class CustomerServiceTest {
     @Test
     public void openInitAccountFailed(){
 
-        given(openNewAccountRepository.save(new NewAccountRequest(Mockito.anyString(), Mockito.anyString()))).willThrow(OpenAccountFailedException.class);
+        given(newAccountRequestRepository.save(new NewAccountRequest(Mockito.anyString(), Mockito.anyString()))).willThrow(OpenAccountFailedException.class);
 
-        assertThrows(OpenAccountFailedException.class, ()-> openNewAccountService.createInitialAccount("0123456789", "0"));
+        assertThrows(OpenAccountFailedException.class, ()-> newAccountRequestService.createInitialAccount("0123456789", "0"));
     }
 }

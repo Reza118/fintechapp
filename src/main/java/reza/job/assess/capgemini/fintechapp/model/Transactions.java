@@ -31,8 +31,7 @@ public class Transactions {
 
     public Transactions() {}
 
-    public Transactions(Long id, String customer_ID, String account, String txn, String txn_amount, String date_time, String balance_after_txn) {
-        this.id = id;
+    public Transactions(String customer_ID, String account, String txn, String txn_amount, String date_time, String balance_after_txn) {
         this.customer_ID = customer_ID;
         this.account = account;
         this.txn = txn;

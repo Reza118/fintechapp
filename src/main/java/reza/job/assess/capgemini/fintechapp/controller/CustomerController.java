@@ -9,18 +9,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reza.job.assess.capgemini.fintechapp.dto.CustAccDTO;
 import reza.job.assess.capgemini.fintechapp.enums.EndPointsEnum;
-import reza.job.assess.capgemini.fintechapp.model.NewAccountRequest;
 import reza.job.assess.capgemini.fintechapp.service.CustomerService;
-import reza.job.assess.capgemini.fintechapp.service.OpenNewAccountService;
 
-@CrossOrigin(origins = "http://localhost:3000")
+//@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://63cd774dc2544253ff254d8a--glistening-biscotti-fb2639.netlify.app")
 @RestController
 public class CustomerController {
 
     @Autowired
     CustomerService customerService;
 
-    @CrossOrigin(origins = "http://localhost:3000")
+    //@CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = "https://63cd774dc2544253ff254d8a--glistening-biscotti-fb2639.netlify.app")
     @RequestMapping(EndPointsEnum.EndpointConstants.ep_userInfo +
                     "/{" + EndPointsEnum.EndpointConstants.pathvar_custID + "}")
     public ResponseEntity<Iterable<CustAccDTO>> CustomerData(@PathVariable String customerID) throws Exception{

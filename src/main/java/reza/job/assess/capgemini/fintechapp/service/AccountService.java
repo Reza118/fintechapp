@@ -17,6 +17,12 @@ public class AccountService {
 
         return accounts;
     }
+
+    public Iterable<Accounts> FindByCustomerID(String cust_ID)
+    {
+        Iterable<Accounts> accounts = accountRepository.findByIterable(cust_ID);
+        return accounts;
+    }
 }
 
 

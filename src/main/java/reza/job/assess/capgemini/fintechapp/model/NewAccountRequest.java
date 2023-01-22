@@ -3,8 +3,9 @@ package reza.job.assess.capgemini.fintechapp.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name="new_account_request",
-        indexes = {@Index(name = "uindx_CustomerID_InitCredit",  columnList="customer_ID, initial_credit", unique = true)})
+//@Table(name="new_account_request",
+//        indexes = {@Index(name = "uindx_CustomerID_InitCredit",  columnList="customer_ID, initial_credit", unique = true)})
+@Table(name="new_account_request")
 public class NewAccountRequest {
 
     @Id

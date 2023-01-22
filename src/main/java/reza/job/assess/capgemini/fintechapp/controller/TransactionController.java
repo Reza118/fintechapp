@@ -13,14 +13,16 @@ import reza.job.assess.capgemini.fintechapp.model.Transactions;
 import reza.job.assess.capgemini.fintechapp.service.CustomerService;
 import reza.job.assess.capgemini.fintechapp.service.TransactionService;
 
-@CrossOrigin(origins = "http://localhost:3000")
+//@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://63cd774dc2544253ff254d8a--glistening-biscotti-fb2639.netlify.app")
 @RestController
 public class TransactionController {
 
     @Autowired
     TransactionService transactionService;
 
-    @CrossOrigin(origins = "http://localhost:3000")
+    //@CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = "https://63cd774dc2544253ff254d8a--glistening-biscotti-fb2639.netlify.app")
     @RequestMapping(EndPointsEnum.EndpointConstants.ep_txns +
                     "/{" + EndPointsEnum.EndpointConstants.pathvar_custID + "}" +
                     "/{" + EndPointsEnum.EndpointConstants.pathvar_account + "}")

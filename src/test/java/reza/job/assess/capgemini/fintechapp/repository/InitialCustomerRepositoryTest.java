@@ -14,12 +14,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class InitialCustomerRepositoryTest {
 
     @Autowired
-    private OpenNewAccountRepository openNewAccountRepository;
+    private NewAccountRequestRepository newAccountRequestRepository;
 
     @Test
     public void openinitialAccountTest(){
 
-        NewAccountRequest newAccountRequest = openNewAccountRepository.save(new NewAccountRequest("0123456789", "0"));
+        NewAccountRequest newAccountRequest = newAccountRequestRepository.save(new NewAccountRequest("0123456789", "0"));
         assertTrue(newAccountRequest != null);
     }
 }
